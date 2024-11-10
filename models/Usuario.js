@@ -1,43 +1,60 @@
-// models/Usuario.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Verifica que este archivo exista y sea el correcto
+const sequelize = require('../config/database');
 
 
 const Usuario = sequelize.define('Usuario', {
     UsuarioID: {
         type: DataTypes.STRING,
-        primaryKey: true,
+        primaryKey: true
     },
     DoctorID: {
         type: DataTypes.INTEGER,
-        allowNull: false,
         unique: true,
+        autoIncrement: true
     },
-    Nombre: DataTypes.STRING,
-    Apellido: DataTypes.STRING,
+    Nombre: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    Apellido: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     DNI: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false
     },
     NombreUsuario: {
         type: DataTypes.STRING,
         unique: true,
+        allowNull: false
     },
-    Rol: DataTypes.STRING,
-    CorreoElectronico: DataTypes.STRING,
-    Telefono: DataTypes.STRING,
-    UltimoAcceso: DataTypes.DATE,
+    Rol: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    CorreoElectronico: {
+        type: DataTypes.STRING
+    },
+    Telefono: {
+        type: DataTypes.STRING
+    },
+    UltimoAcceso: {
+        type: DataTypes.DATE
+    },
     FechaRegistro: {
         type: DataTypes.DATE,
-        defaultValue: DataTypes.NOW,
+        defaultValue: DataTypes.NOW
     },
     Estado: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true,
-    },
+        defaultValue: true
+    }
 }, {
     tableName: 'Usuarios',
-    timestamps: false,
+    timestamps: false
 });
+
 
 module.exports = Usuario;

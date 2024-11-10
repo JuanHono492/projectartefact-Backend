@@ -20,13 +20,13 @@ app.use(express.json());
 // Importar rutas
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/usuarios');
-const historiaClinicaRoutes = require('./routes/historiaclinica');
+const historiasClinicasRoute = require('./routes/historiaclinica');
 
 
 // Usar rutas
 app.use('/auth', authRoutes);
 app.use('/usuarios', userRoutes);
-app.use('/api', historiaClinicaRoutes);
+app.use('/api', historiasClinicasRoute);
 
 // Sincronizar con ambas bases de datos
 async function startServer() {
