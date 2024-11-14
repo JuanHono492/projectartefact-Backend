@@ -5,12 +5,11 @@ const cors = require('cors');
 const sequelize = require('./config/database'); // Conexión a la base de datos principal
 const sequelizeAuth = require('./config/BDAuth'); // Conexión a la base de datos de autenticación
 
-
 const app = express();
 
 // Configuración de CORS
 app.use(cors({
-    origin: 'http://localhost:3000', // Cambia esto a la URL de tu frontend si es diferente
+    origin: 'http://localhost:3000', // URL del frontend
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
@@ -21,7 +20,6 @@ app.use(express.json());
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/usuarios');
 const historiasClinicasRoute = require('./routes/historiaclinica');
-
 
 // Usar rutas
 app.use('/auth', authRoutes);

@@ -3,9 +3,6 @@ const crypto = require('crypto');
 const Usuario = require('./models/Usuario'); // Usa 'Usuario' en singular
 const Authentication = require('./models/Authentication');
 
-
-
-
 async function testLogin(nombreUsuario, password) {
     try {
         const usuario = await Usuario.findOne({ where: { NombreUsuario: nombreUsuario } });

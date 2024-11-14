@@ -1,11 +1,13 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-
+const { v4: uuidv4 } = require('uuid'); // Importa la librería para generar UUIDs
 
 const Usuario = sequelize.define('Usuario', {
     UsuarioID: {
         type: DataTypes.STRING,
-        primaryKey: true
+        primaryKey: true,
+        defaultValue: () => uuidv4(), // Genera un UUID automáticamente si no se proporciona un UsuarioID
+        allowNull: false
     },
     DoctorID: {
         type: DataTypes.INTEGER,
@@ -44,9 +46,9 @@ const Usuario = sequelize.define('Usuario', {
         type: DataTypes.DATE
     },
     FechaRegistro: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         defaultValue: DataTypes.NOW
-    },
+    },    
     Estado: {
         type: DataTypes.BOOLEAN,
         defaultValue: true
@@ -55,6 +57,5 @@ const Usuario = sequelize.define('Usuario', {
     tableName: 'Usuarios',
     timestamps: false
 });
-
 
 module.exports = Usuario;

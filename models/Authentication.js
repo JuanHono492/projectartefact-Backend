@@ -20,7 +20,7 @@ const Authentication = dbAuth.define('Authentication', {
     FechaCreacion: {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: DataTypes.NOW
+        defaultValue: DataTypes.NOW // Esto debería asignar la fecha y hora actual
     },
     UltimoCambio: {
         type: DataTypes.DATE,

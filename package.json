@@ -20,6 +20,7 @@
     "projectartefact-(backend)": "file:",
     "projectartefact-backend": "file:",
     "projectartefact(backend)": "file:",
-    "sequelize": "^6.37.5"
+    "sequelize": "^6.37.5",
+    "uuid": "^11.0.3"
   }
 }
