@@ -58,5 +58,18 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Error al cambiar el estado del paciente' });
     }
 });
+// routes/pacientes.js - Agrega esta ruta
+router.get('/historia/:numeroHistoria', async (req, res) => {
+    try {
+        const paciente = await Paciente.findOne({ where: { NumeroHistoria: req.params.numeroHistoria } });
+        if (paciente) {
+            res.json(paciente);
+        } else {
+            res.status(404).json({ error: 'Paciente no encontrado' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Error al buscar el paciente' });
+    }
+});
 
 module.exports = router;

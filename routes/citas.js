@@ -1,54 +1,74 @@
+// routes/citas.js
 const express = require('express');
 const router = express.Router();
 const Cita = require('../models/Cita');
 const Paciente = require('../models/Paciente');
-const Doctor = require('../models/Doctor'); // Assuming there's a Doctor model
+const Usuario = require('../models/Usuario');
 
-// Get all doctors for selection
-router.get('/doctors', async (req, res) => {
+// Obtener todas las citas
+router.get('/', async (req, res) => {
     try {
-        const doctors = await Doctor.findAll();
-        res.json(doctors);
-    } catch (error) {
-        console.error("Error fetching doctors:", error);
-        res.status(500).json({ error: 'Error fetching doctors' });
-    }
-});
-
-// Check if a patient exists or create a new one
-router.post('/patients', async (req, res) => {
-    const { nombre, apellido, dni, ...otherDetails } = req.body;
-
-    try {
-        let patient = await Paciente.findOne({ where: { DNI: dni } });
-        if (!patient) {
-            patient = await Paciente.create({ Nombre: nombre, Apellido: apellido, DNI: dni, ...otherDetails });
-        }
-        res.json(patient);
-    } catch (error) {
-        console.error("Error managing patient:", error);
-        res.status(500).json({ error: 'Error managing patient' });
-    }
-});
-
-// Schedule an appointment
-router.post('/citas', async (req, res) => {
-    const { pacienteID, doctorID, fechaCita, horaCita, motivoCita, estado, numeroHistoriaClinica } = req.body;
-
-    try {
-        const cita = await Cita.create({
-            PacienteID: pacienteID,
-            DoctorID: doctorID,
-            FechaCita: fechaCita,
-            HoraCita: horaCita,
-            MotivoCita: motivoCita,
-            Estado: estado,
-            NumeroHistoriaClinica: numeroHistoriaClinica
+        const citas = await Cita.findAll({
+            include: [
+                { model: Paciente, attributes: ['Nombre', 'Apellido', 'DNI'] },
+                { model: Usuario, as: 'Doctor', attributes: ['Nombre', 'Apellido'] }
+            ]
         });
-        res.status(201).json({ message: 'Cita creada exitosamente', cita });
+        res.json(citas);
     } catch (error) {
-        console.error("Error creating appointment:", error);
-        res.status(500).json({ error: 'Error creating appointment' });
+        res.status(500).json({ error: 'Error al obtener citas' });
+    }
+});
+
+// Crear una nueva cita
+router.post('/', async (req, res) => {
+    try {
+        const nuevaCita = await Cita.create(req.body);
+        res.status(201).json(nuevaCita);
+    } catch (error) {
+        res.status(500).json({ error: 'Error al crear la cita' });
+    }
+});
+
+// Obtener una cita por ID
+router.get('/:id', async (req, res) => {
+    try {
+        const cita = await Cita.findByPk(req.params.id, {
+            include: [
+                { model: Paciente, attributes: ['Nombre', 'Apellido', 'DNI'] },
+                { model: Usuario, as: 'Doctor', attributes: ['Nombre', 'Apellido'] }
+            ]
+        });
+        if (cita) res.json(cita);
+        else res.status(404).json({ error: 'Cita no encontrada' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al obtener la cita' });
+    }
+});
+
+// Actualizar una cita por ID
+router.put('/:id', async (req, res) => {
+    try {
+        const cita = await Cita.findByPk(req.params.id);
+        if (cita) {
+            await cita.update(req.body);
+            res.json(cita);
+        } else res.status(404).json({ error: 'Cita no encontrada' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al actualizar la cita' });
+    }
+});
+
+// Cambiar el estado de una cita en lugar de eliminarla
+router.delete('/:id', async (req, res) => {
+    try {
+        const cita = await Cita.findByPk(req.params.id);
+        if (cita) {
+            await cita.update({ Estado: 'Cancelada' });
+            res.json({ message: 'Cita cancelada' });
+        } else res.status(404).json({ error: 'Cita no encontrada' });
+    } catch (error) {
+        res.status(500).json({ error: 'Error al cambiar el estado de la cita' });
     }
 });
 
