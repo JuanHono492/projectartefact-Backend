@@ -1,36 +1,44 @@
-// models/Cita.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-const Paciente = require('./Paciente');
+const sequelize = require('../config/database'); // Conexión a la base de datos
 
+// Definición del modelo Cita
 const Cita = sequelize.define('Cita', {
     CitaID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true,
+        autoIncrement: true
     },
     PacienteID: {
         type: DataTypes.INTEGER,
-        references: {
-            model: Paciente,
-            key: 'PacienteID',
-        },
+        allowNull: false
     },
-    MedicoID: {
+    DoctorID: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
     },
-    FechaCita: DataTypes.DATE,
-    HoraCita: DataTypes.TIME,
-    MotivoCita: DataTypes.STRING,
+    FechaCita: {
+        type: DataTypes.DATE,
+        allowNull: false
+    },
+    HoraCita: {
+        type: DataTypes.TIME,
+        allowNull: false
+    },
+    MotivoCita: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     Estado: {
         type: DataTypes.STRING,
-        defaultValue: 'Pendiente',
+        allowNull: false
     },
+    DescripcionCita: {
+        type: DataTypes.STRING
+    }
 }, {
     tableName: 'Citas',
-    timestamps: false,
+    timestamps: false
 });
 
-Cita.belongsTo(Paciente, { foreignKey: 'PacienteID' });
+// Exportar el modelo sin relaciones (para evitar dependencias circulares en esta etapa)
 module.exports = Cita;

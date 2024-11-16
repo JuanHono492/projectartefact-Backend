@@ -1,8 +1,10 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Paciente = require('./Paciente');
-const Usuario = require('./Usuario'); 
+const Usuario = require('./Usuario');
+const Cita = require('./Cita'); // Importar después de definir Cita
 
+// Definición del modelo HistoriaClinica
 const HistoriaClinica = sequelize.define('HistoriaClinica', {
     HistoriaClinicaID: {
         type: DataTypes.INTEGER,
@@ -26,7 +28,7 @@ const HistoriaClinica = sequelize.define('HistoriaClinica', {
         allowNull: false,
         references: {
             model: Usuario,
-            key: 'DoctorID' // Asegúrate de que aquí se usa `DoctorID`
+            key: 'DoctorID'
         }
     },
     Diagnostico: {
@@ -44,8 +46,9 @@ const HistoriaClinica = sequelize.define('HistoriaClinica', {
     timestamps: false
 });
 
-// Relaciones
+// Definir relaciones
 HistoriaClinica.belongsTo(Paciente, { foreignKey: 'PacienteID', targetKey: 'PacienteID' });
-HistoriaClinica.belongsTo(Usuario, { as: 'Medico', foreignKey: 'DoctorID', targetKey: 'DoctorID' }); // targetKey para asegurarse de que apunta a DoctorID en Usuario
+HistoriaClinica.belongsTo(Usuario, { as: 'Medico', foreignKey: 'DoctorID', targetKey: 'DoctorID' });
+HistoriaClinica.hasMany(Cita, { foreignKey: 'PacienteID', sourceKey: 'PacienteID' }); // Relación con Cita
 
 module.exports = HistoriaClinica;

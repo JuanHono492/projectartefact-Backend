@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Cita = require('./Cita'); // Importación necesaria para definir la relación
 
 const Paciente = sequelize.define('Paciente', {
     PacienteID: {
@@ -27,17 +28,8 @@ const Paciente = sequelize.define('Paciente', {
     Genero: {
         type: DataTypes.STRING(1)
     },
-    EstadoCivil: {
-        type: DataTypes.STRING
-    },
     TipoSangre: {
         type: DataTypes.STRING(3)
-    },
-    Ocupacion: {
-        type: DataTypes.STRING
-    },
-    Direccion: {
-        type: DataTypes.STRING
     },
     Telefono: {
         type: DataTypes.STRING
@@ -57,5 +49,8 @@ const Paciente = sequelize.define('Paciente', {
     tableName: 'Pacientes',
     timestamps: false
 });
+
+// Relación con Cita
+Paciente.hasMany(Cita, { foreignKey: 'PacienteID', sourceKey: 'PacienteID' });
 
 module.exports = Paciente;

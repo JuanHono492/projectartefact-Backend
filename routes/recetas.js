@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
     }
 });
 
+
 router.post('/', async (req, res) => {
     try {
         const nuevaReceta = await Receta.create(req.body);

@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
         });
         res.json(citas);
     } catch (error) {
+        console.error("Error al obtener citas:", error);
         res.status(500).json({ error: 'Error al obtener citas' });
     }
 });

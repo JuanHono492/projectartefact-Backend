@@ -1,12 +1,13 @@
+// models/Usuario.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const { v4: uuidv4 } = require('uuid'); // Importa la librería para generar UUIDs
+const { v4: uuidv4 } = require('uuid');
 
 const Usuario = sequelize.define('Usuario', {
     UsuarioID: {
         type: DataTypes.STRING,
         primaryKey: true,
-        defaultValue: () => uuidv4(), // Genera un UUID automáticamente si no se proporciona un UsuarioID
+        defaultValue: () => uuidv4(),
         allowNull: false
     },
     DoctorID: {
