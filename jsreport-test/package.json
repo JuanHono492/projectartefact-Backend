@@ -1,0 +1,18 @@
+{
+  "name": "jsreport-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jsreport/jsreport-chrome-pdf": "^4.1.0",
+    "@jsreport/jsreport-handlebars": "^4.0.1",
+    "jsreport": "^4.7.0",
+    "jsreport-test": "file:"
+  }
+}

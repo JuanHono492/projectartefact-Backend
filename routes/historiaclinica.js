@@ -5,7 +5,7 @@ const Paciente = require('../models/Paciente');
 const Usuario = require('../models/Usuario');
 const Cita = require('../models/Cita');
 
-// Obtener el historial médico con la información del paciente, médico y cita
+// Obtener el historial médico con la información del paciente, médico y citas
 router.get('/historias', async (req, res) => {
     try {
         const historias = await HistoriaClinica.findAll({
@@ -21,8 +21,8 @@ router.get('/historias', async (req, res) => {
                 },
                 {
                     model: Cita,
-                    attributes: ['FechaCita', 'HoraCita', 'MotivoCita', 'Estado', 'DescripcionCita'],
-                    required: false
+                    as: 'Citas', // Alias utilizado en el modelo
+                    attributes: ['FechaCita', 'HoraCita', 'MotivoCita', 'Estado', 'DescripcionCita']
                 }
             ]
         });

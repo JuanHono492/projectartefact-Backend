@@ -1,0 +1,20 @@
+{
+  "extensions": {
+    "chrome-pdf": {
+      "launchOptions": {
+        "args": ["--no-sandbox", "--disable-setuid-sandbox"]
+      }
+    },
+    "handlebars": {},
+    "assets": {}
+  },
+  "httpPort": 5488,
+  "blobStorage": {
+    "provider": "fs"
+  },
+  "logger": {
+    "console": {
+      "level": "debug"
+    }
+  }
+}
