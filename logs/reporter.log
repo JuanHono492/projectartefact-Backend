@@ -58,3 +58,6 @@
 2024-11-16T18:25:16.895Z - info: Initializing jsreport (version: 4.7.0, configuration file: jsreport.config.json, nodejs: 18.15.0)
 2024-11-16T18:25:16.897Z - info: Searching for available extensions in C:\Users\Juan\Desktop\projectartefact-Backend\
 2024-11-16T18:25:16.901Z - info: Extensions location cache doesn't contain entry yet, crawling
+2024-11-16T18:36:56.035Z - info: Initializing jsreport (version: 4.7.0, configuration file: jsreport.config.json, nodejs: 18.15.0)
+2024-11-16T18:36:56.036Z - info: Searching for available extensions in C:\Users\Juan\Desktop\projectartefact-Backend\
+2024-11-16T18:36:56.039Z - info: Extensions location cache doesn't contain entry yet, crawling

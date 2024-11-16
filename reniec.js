@@ -1,18 +1,21 @@
+require('dotenv').config();
 const axios = require('axios');
 
-const obtenerDatosPorDni = async (dni) => {
-    try {
-        const response = await axios.get(`https://api.apis.net.pe/v2/reniec/dni?numero=${dni}`, {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer TU_TOKEN'
-            }
-        });
-        console.log(response.data);
-    } catch (error) {
-        console.error('Error al obtener datos:', error);
-    }
+const API_TOKEN = process.env.API_TOKEN;
+const DNI = '40662987'; // Reemplaza con el DNI que deseas consultar
+
+const config = {
+  method: 'get',
+  url: `https://dniruc.apisperu.com/api/v1/dni/${DNI}?token=${API_TOKEN}`,
+  headers: {
+    'Accept': 'application/json'
+  }
 };
 
-// Ejemplo de uso
-obtenerDatosPorDni('73173028');
+axios(config)
+  .then(response => {
+    console.log('Datos obtenidos:', response.data);
+  })
+  .catch(error => {
+    console.error('Error al realizar la consulta:', error);
+  });

@@ -246,3 +246,65 @@
 2024-11-16T17:36:19.578Z - info: 2 worker threads initialized in 590ms
 2024-11-16T17:36:19.578Z - info: Starting temp files cleanup with 180000ms threshold
 2024-11-16T17:36:19.579Z - info: reporter initialized
+2024-11-16T18:35:19.322Z - info: Initializing jsreport (version: 4.7.0, configuration file: ./jsreport.config.json, nodejs: 18.15.0)
+2024-11-16T18:35:19.325Z - info: Searching for available extensions in C:\Users\Juan\Desktop\projectartefact-Backend\jsreport-test\
+2024-11-16T18:35:19.329Z - info: Extensions location cache not found, crawling directories
+2024-11-16T18:35:20.534Z - info: Found 35 extension(s)
+2024-11-16T18:35:20.567Z - debug: Writing extension locations cache to C:\Users\Juan\AppData\Local\Temp\jsreport\core\locations.json
+2024-11-16T18:35:20.568Z - debug: Discovered 35 extensions
+2024-11-16T18:35:20.602Z - info: Using extension authentication@4.2.2
+2024-11-16T18:35:20.785Z - debug: Extension authentication@4.2.2 was disabled
+2024-11-16T18:35:20.786Z - info: Using extension base@4.0.0
+2024-11-16T18:35:20.789Z - info: Using extension child-templates@4.1.0
+2024-11-16T18:35:20.790Z - info: Using extension cli@4.0.5
+2024-11-16T18:35:20.793Z - info: Using extension components@4.0.2
+2024-11-16T18:35:20.794Z - info: Using extension data@4.1.0
+2024-11-16T18:35:20.795Z - info: Using extension express@4.1.3
+2024-11-16T18:35:21.159Z - info: Using extension freeze@4.0.0
+2024-11-16T18:35:21.161Z - info: Using extension fs-store@4.0.5
+2024-11-16T18:35:21.288Z - info: Using extension handlebars@4.0.1
+2024-11-16T18:35:21.289Z - info: Using extension import-export@4.0.5
+2024-11-16T18:35:21.300Z - info: Using extension jsrender@4.0.0
+2024-11-16T18:35:21.300Z - info: Using extension licensing@4.0.3
+2024-11-16T18:35:21.332Z - info: Using extension localization@4.0.1
+2024-11-16T18:35:21.333Z - info: Using extension npm@4.0.0
+2024-11-16T18:35:21.336Z - info: Using extension pdf-utils@4.2.2
+2024-11-16T18:35:21.337Z - info: Using extension reports@4.1.2
+2024-11-16T18:35:21.340Z - info: Using extension tags@4.0.1
+2024-11-16T18:35:21.341Z - info: Using extension text@4.0.2
+2024-11-16T18:35:21.342Z - info: Using extension version-control@4.0.0
+2024-11-16T18:35:21.350Z - info: Using extension assets@4.2.0
+2024-11-16T18:35:21.362Z - info: Using extension authorization@4.0.1
+2024-11-16T18:35:21.366Z - debug: Extension authorization@4.0.1 was disabled
+2024-11-16T18:35:21.366Z - info: Using extension browser-client@4.1.0
+2024-11-16T18:35:21.369Z - info: Using extension chrome-pdf@4.1.0
+2024-11-16T18:35:21.371Z - debug: Chrome strategy is chrome-pool, numberOfWorkers: 1
+2024-11-16T18:35:21.372Z - debug: Chrome custom launch options are args=--no-sandbox,--disable-setuid-sandbox
+2024-11-16T18:35:21.372Z - info: Using extension docx@4.6.0
+2024-11-16T18:35:21.374Z - info: Using extension html-to-xlsx@4.1.4
+2024-11-16T18:35:21.778Z - info: html-to-xlsx detected chrome as available html engine
+2024-11-16T18:35:21.779Z - info: Using extension pptx@4.3.2
+2024-11-16T18:35:21.782Z - info: Using extension scheduling@4.0.0
+2024-11-16T18:35:21.810Z - info: Using extension scripts@4.1.0
+2024-11-16T18:35:21.811Z - info: Using extension static-pdf@4.1.0
+2024-11-16T18:35:21.812Z - info: Using extension studio@4.2.0
+2024-11-16T18:35:21.906Z - info: Using extension xlsx@4.3.0
+2024-11-16T18:35:21.908Z - info: Using extension public-templates@4.0.0
+2024-11-16T18:35:21.909Z - debug: Extension public-templates@4.0.0 was disabled
+2024-11-16T18:35:21.910Z - info: Using extension sample-template@4.0.0
+2024-11-16T18:35:21.911Z - info: Using extension studio-theme-dark@4.0.0
+2024-11-16T18:35:21.912Z - info: Using general timeout for rendering (reportTimeout: 60000)
+2024-11-16T18:35:21.913Z - info: Using memory provider for template store. The saved templates will be lost after restart
+2024-11-16T18:35:21.926Z - debug: studio default theme is: light
+2024-11-16T18:35:21.929Z - info: Creating default express app.
+2024-11-16T18:35:21.955Z - info: jsreport server successfully started on http port: 5488
+2024-11-16T18:35:21.956Z - info: Verifying license key free
+2024-11-16T18:35:21.958Z - info: Using free license
+2024-11-16T18:35:21.964Z - info: Migrating templates chrome settings (waitForNetworkIddle -> waitForNetworkIdle)
+2024-11-16T18:35:21.965Z - info: Migration successful
+2024-11-16T18:35:21.966Z - debug: Creating samples is disabled
+2024-11-16T18:35:21.966Z - info: Initializing worker threads
+2024-11-16T18:35:21.967Z - debug: Extensions in workers: base, child-templates, components, data, express, handlebars, jsrender, localization, npm, pdf-utils, reports, text, version-control, assets, browser-client, chrome-pdf, docx, html-to-xlsx, pptx, scripts, static-pdf, studio, xlsx
+2024-11-16T18:35:22.622Z - info: 2 worker threads initialized in 656ms
+2024-11-16T18:35:22.622Z - info: Starting temp files cleanup with 180000ms threshold
+2024-11-16T18:35:22.623Z - info: reporter initialized
