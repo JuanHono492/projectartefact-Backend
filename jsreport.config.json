@@ -1,9 +1,0 @@
-{
-  "httpPort": 5488,
-  "extensions": {
-    "express": {
-      "enabled": true,
-      "appPath": "/reportes"
-    }
-  }
-}

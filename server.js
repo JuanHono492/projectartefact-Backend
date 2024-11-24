@@ -1,15 +1,13 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const sequelize = require('./config/database'); // Conexión a la base de datos principal
-const sequelizeAuth = require('./config/BDAuth'); // Conexión a la base de datos de autenticación
-const getJsreportInstance = require('./config/jsreport');
+const {sequelize} = require('./config/database'); // Conexión a la base de datos principal
+const {sequelizeAuth} = require('./config/BDAuth'); // Conexión a la base de datos de autenticación
 
 const app = express();
-let jsreportReady = false; // Bandera para saber si jsreport está listo
 
 // Configuración
-const PORT = process.env.PORT || 5000;
+
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 // Configuración de CORS
@@ -48,14 +46,12 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/usuarios');
 const historiasClinicasRoute = require('./routes/historiaclinica');
 const citasRoutes = require('./routes/citas');
-const reportesRoute = require('./routes/reportes');
 
 // Usar rutas
 app.use('/auth', authRoutes);
 app.use('/usuarios', userRoutes);
 app.use('/api', historiasClinicasRoute);
 app.use('/citas', citasRoutes);
-app.use('/reportes', reportesRoute);
 
 // Middleware global para manejo de errores
 app.use((err, req, res, next) => {
@@ -67,10 +63,7 @@ app.use((err, req, res, next) => {
 async function connectDatabases() {
     try {
         console.log('Intentando conectar con las bases de datos...');
-        await sequelize.authenticate();
         console.log('Conexión a la base de datos principal exitosa');
-
-        await sequelizeAuth.authenticate();
         console.log('Conexión a la base de datos de autenticación exitosa');
     } catch (error) {
         console.error('Error al conectar con las bases de datos:', error);
@@ -78,33 +71,12 @@ async function connectDatabases() {
     }
 }
 
-// Función para inicializar `jsreport` de manera asíncrona
-async function initializeJsreport() {
-    try {
-        const jsreport = await getJsreportInstance();
-        jsreportReady = true; // Marca jsreport como listo
-        console.log('jsreport inicializado correctamente');
-    } catch (error) {
-        console.error('Error al inicializar jsreport:', error);
-        process.exit(1); // Finaliza el proceso si no puede inicializar jsreport
-    }
-}
 
-// Middleware para verificar que `jsreport` esté listo
-app.use((req, res, next) => {
-    if (!jsreportReady && req.path.startsWith('/reportes')) {
-        return res.status(503).json({ error: 'El servicio de reportes está inicializándose. Intenta nuevamente en unos momentos.' });
-    }
-    next();
-});
+const PORT = process.env.PORT || 5000;
 
-// Función para iniciar el servidor
 async function startServer() {
     try {
         await connectDatabases(); // Conectar a las bases de datos
-
-        // Inicializar jsreport de manera asíncrona (no bloquea el servidor)
-        initializeJsreport();
 
         // Iniciar el servidor
         app.listen(PORT, () => {

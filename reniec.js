@@ -2,7 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 
 const API_TOKEN = process.env.API_TOKEN;
-const DNI = '40662987'; // Reemplaza con el DNI que deseas consultar
+const DNI = '71051559'; // Reemplaza con el DNI que deseas consultar
 
 const config = {
   method: 'get',

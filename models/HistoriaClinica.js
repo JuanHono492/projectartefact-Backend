@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const {sequelize} = require('../config/database');
 const Paciente = require('./Paciente');
 const Usuario = require('./Usuario');
 const Cita = require('./Cita'); // Importar el modelo de Cita

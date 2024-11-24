@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const {sequelize} = require('../config/database');
 const Cita = require('./Cita'); // Importación necesaria para definir la relación
 
 const Paciente = sequelize.define('Paciente', {

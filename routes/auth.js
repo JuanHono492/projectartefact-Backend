@@ -8,6 +8,7 @@ const Authentication = require('../models/Authentication');
 const router = express.Router();
 
 router.post('/login', async (req, res) => {
+    
     const { username, password } = req.body;
 
     try {
@@ -15,8 +16,9 @@ router.post('/login', async (req, res) => {
         const usuario = await Usuario.findOne({ where: { NombreUsuario: username } });
         if (!usuario) {
             return res.status(401).json({ error: 'Usuario o contraseña incorrectos' });
+            
         }
-
+        
         // Generar hash para buscar el usuario en la tabla de autenticación
         const usuarioIDHash = crypto.createHash('sha256').update(usuario.NombreUsuario + usuario.DNI).digest('hex');
         const authRecord = await Authentication.findOne({ where: { UsuarioIDHash: usuarioIDHash } });

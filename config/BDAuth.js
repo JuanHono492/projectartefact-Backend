@@ -1,15 +1,33 @@
-require('dotenv').config();
+// dbService.js
 const { Sequelize } = require('sequelize');
+require('dotenv').config();
 
 const sequelize = new Sequelize(
-    process.env.DB_AUTH_NAME,
-    process.env.DB_AUTH_USER,
-    process.env.DB_AUTH_PASSWORD,
+    process.env.DB_AUTH_NAME, // Nombre de la base de datos
+    process.env.DB_AUTH_USER, // Usuario
+    process.env.DB_AUTH_PASSWORD, // Contraseña
     {
-        host: process.env.DB_AUTH_HOST,
-        dialect: process.env.DB_DIALECT,
-        logging: false, // Desactivar el logging de SQL en la consola
+        host: process.env.DB_AUTH_HOST, // Servidor
+        dialect: 'mssql', // Dialecto para SQL Server
+        port: process.env.DB_PORT || 5000, // Puerto
+        dialectOptions: {
+            options: {
+                encrypt: true, // Requerido para Azure SQL
+                enableArithAbort: true, // Mejor para SQL Server
+            },
+        },
+        logging: false, // Desactiva logs de consultas SQL
     }
 );
 
-module.exports = sequelize;
+const connectToDatabase = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log('Connection to SQL Server has been established successfully.');
+    } catch (error) {
+        console.error('Unable to connect to the database:', error.message);
+        throw error;
+    }
+};
+
+module.exports = { sequelize, connectToDatabase };

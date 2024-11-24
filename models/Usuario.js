@@ -1,6 +1,6 @@
 // models/Usuario.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const {sequelize} = require('../config/database');
 const { v4: uuidv4 } = require('uuid');
 
 const Usuario = sequelize.define('Usuario', {

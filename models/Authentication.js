@@ -1,8 +1,8 @@
 // models/Authentication.js
 const { DataTypes } = require('sequelize');
-const dbAuth = require('../config/BDAuth');
+const {sequelize} = require('../config/BDAuth');
 
-const Authentication = dbAuth.define('Authentication', {
+const Authentication = sequelize.define('Authentication', {
     AuthID: {
         type: DataTypes.INTEGER,
         primaryKey: true,

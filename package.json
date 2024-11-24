@@ -13,6 +13,7 @@
   "dependencies": {
     "@jsreport/jsreport-chrome-pdf": "^4.1.0",
     "@jsreport/jsreport-handlebars": "^4.0.1",
+    "@xmldom/xmldom": "^0.9.5",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
@@ -21,8 +22,6 @@
     "mssql": "^11.0.1",
     "mysql2": "^3.11.4",
     "projectartefact-backend": "file:",
-    "puppeteer": "^23.8.0",
-    "sequelize": "^6.37.5",
-    "uuid": "^11.0.3"
+    "sequelize": "^6.37.5"
   }
 }

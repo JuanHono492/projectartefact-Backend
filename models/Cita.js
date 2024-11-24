@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Conexión a la base de datos
+const {sequelize} = require('../config/database');
 
 // Definición del modelo Cita
 const Cita = sequelize.define('Cita', {
