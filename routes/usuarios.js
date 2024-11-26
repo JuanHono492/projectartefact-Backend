@@ -106,18 +106,4 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
-// Obtener todos los usuarios con rol de Doctor
-router.get('/doctores', async (req, res) => {
-    try {
-        const doctores = await Usuario.findAll({
-            where: { Rol: 'Medico' },
-            attributes: ['UsuarioID', 'Nombre', 'Apellido']
-        });
-        res.json(doctores);
-    } catch (error) {
-        console.error("Error al obtener doctores:", error);
-        res.status(500).json({ error: 'Hubo un problema al obtener la lista de doctores' });
-    }
-});
-
 module.exports = router;

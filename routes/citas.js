@@ -23,10 +23,12 @@ router.get('/', async (req, res) => {
 
 // Crear una nueva cita
 router.post('/', async (req, res) => {
+    console.log(req.body)
     try {
         const nuevaCita = await Cita.create(req.body);
         res.status(201).json(nuevaCita);
     } catch (error) {
+        console.error("Error al crear cita:", error);
         res.status(500).json({ error: 'Error al crear la cita' });
     }
 });

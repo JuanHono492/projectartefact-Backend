@@ -7,7 +7,7 @@ const Authentication = require('../models/Authentication');
 
 const router = express.Router();
 
-router.post('/login', async (req, res) => {
+router.post('/', async (req, res) => {
     
     const { username, password } = req.body;
 
