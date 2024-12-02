@@ -16,7 +16,7 @@ const Cita = sequelize.define('Cita', {
         allowNull: false
     },
     DoctorID: {
-        type: DataTypes.STRING(50),  // Cambiar a STRING(50) si es NVARCHAR(50)
+        type: DataTypes.INTEGER,  // Cambiar a STRING(50) si es NVARCHAR(50)
         allowNull: true
     },    
     FechaCita: {

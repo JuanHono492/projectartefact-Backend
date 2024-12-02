@@ -5,12 +5,20 @@ const Paciente = require('../models/Paciente');
 const Usuario = require('../models/Usuario');
 
 // Obtener todas las citas
+// Obtener todas las citas
 router.get('/', async (req, res) => {
     try {
         const citas = await Cita.findAll({
             include: [
-                { model: Paciente, attributes: ['Nombre', 'Apellido', 'DNI'] },
-                { model: Usuario, as: 'Doctor', attributes: ['Nombre', 'Apellido'] } // Alias 'Doctor' para Usuario
+                { 
+                    model: Paciente,  // Relación con Paciente sin alias
+                    attributes: ['Nombre', 'Apellido', 'DNI']
+                },
+                { 
+                    model: Usuario,   // Relación con Usuario (Doctor) usando el alias
+                    as: 'Doctor',     // El alias 'Doctor' que definimos en la relación
+                    attributes: ['Nombre', 'Apellido']
+                }
             ]
         });
         res.json(citas);
@@ -20,31 +28,41 @@ router.get('/', async (req, res) => {
     }
 });
 
+
 // Crear una nueva cita
 router.post('/', async (req, res) => {
-    console.log("Datos recibidos en el backend:", req.body);  // Verifica qué datos recibes
+    const { PacienteID, FechaCita, HoraCita, MotivoCita, Estado } = req.body;
+ 
+    // Verifica que todos los campos necesarios están presentes
+    if (!PacienteID || !FechaCita || !HoraCita || !MotivoCita || !Estado) {
+        return res.status(400).json({ error: 'Faltan datos obligatorios para crear la cita' });
+    }
+ 
     try {
-        // Verificar que el DoctorID y PacienteID existen antes de crear la cita
-        const pacienteExistente = await Paciente.findByPk(req.body.PacienteID);
-        const doctorExistente = await Usuario.findByPk(req.body.DoctorID);
-
-        if (!pacienteExistente) {
-            return res.status(404).json({ error: 'Paciente no encontrado' });
-        }
-
-        if (!doctorExistente) {
-            return res.status(404).json({ error: 'Doctor no encontrado' });
-        }
-
-        // Si todo es correcto, crea la nueva cita
-        const nuevaCita = await Cita.create(req.body);
-        res.status(201).json(nuevaCita);
+        const nuevaCita = await Cita.create({
+            PacienteID,
+            FechaCita,
+            HoraCita,
+            MotivoCita,
+            Estado
+        });
+ 
+        res.status(201).json({
+            message: 'Cita creada exitosamente',
+            cita: nuevaCita
+        });
     } catch (error) {
         console.error("Error al crear cita:", error);
+ 
+        if (error.name === 'SequelizeUniqueConstraintError') {
+            return res.status(409).json({ error: 'Ya existe una cita con este paciente y doctor en esa fecha y hora' });
+        }
+ 
         res.status(500).json({ error: 'Error al crear la cita' });
     }
-});
-
+ });
+ 
+  
 // Obtener una cita por ID
 router.get('/:id', async (req, res) => {
     try {
@@ -86,5 +104,7 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Error al cambiar el estado de la cita' });
     }
 });
+
+
 
 module.exports = router;
