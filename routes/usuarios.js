@@ -32,11 +32,18 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ error: 'Hubo un problema al obtener el usuario' });
     }
 });
+
+// Crear un nuevo usuario
 router.post('/', async (req, res) => {
     const { nombre, apellido, dni, nombreUsuario, rol, correoElectronico, telefono, estado, contrasena } = req.body;
 
     try {
+        // Generar el hash de UsuarioID basado en nombreUsuario + dni
+        const usuarioIDHash = crypto.createHash('sha256').update(nombreUsuario + dni).digest('hex');
+
+        // Crear un nuevo usuario
         const nuevoUsuario = await Usuario.create({
+            UsuarioID: usuarioIDHash,  // Usamos el hash como ID de usuario
             Nombre: nombre,
             Apellido: apellido,
             DNI: dni,
@@ -44,19 +51,18 @@ router.post('/', async (req, res) => {
             Rol: rol,
             CorreoElectronico: correoElectronico,
             Telefono: telefono,
-            Estado: estado
+            Estado: estado ? 1 : 0  // Convertir estado a 1 (activo) o 0 (inactivo)
         });
 
-        // Generar el hash usando NombreUsuario y DNI
-        const usuarioIDHash = crypto.createHash('sha256').update(nombreUsuario + dni).digest('hex');
-
+        // Crear un hash para la contraseña
         const passwordHash = await bcrypt.hash(contrasena, 10);
 
+        // Crear la autenticación del usuario
         await Authentication.create({
             UsuarioIDHash: usuarioIDHash,
             PasswordHash: passwordHash,
             FechaCreacion: new Date(),
-            Estado: 'Activo'
+            Estado: 'Activo'  // Estado de autenticación
         });
 
         res.status(201).json({ message: 'Usuario creado exitosamente' });
@@ -69,8 +75,6 @@ router.post('/', async (req, res) => {
         }
     }
 });
-
-
 
 // Actualizar un usuario por ID
 router.put('/:id', async (req, res) => {
@@ -95,7 +99,7 @@ router.delete('/:id', async (req, res) => {
     try {
         const usuario = await Usuario.findOne({ where: { UsuarioID: id } });
         if (usuario) {
-            await usuario.update({ Estado: false });
+            await usuario.update({ Estado: 0 });  // Inactivar usuario (0 = inactivo)
             res.json({ message: 'Usuario inactivado' });
         } else {
             res.status(404).json({ error: 'Usuario no encontrado' });

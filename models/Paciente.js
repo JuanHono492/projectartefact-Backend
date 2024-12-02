@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
-const {sequelize} = require('../config/database');
-const Cita = require('./Cita'); // Importación necesaria para definir la relación
+const { sequelize } = require('../config/database');
+const Cita = require('./Cita'); // Asegúrate de que el modelo Cita esté importado correctamente
 
 const Paciente = sequelize.define('Paciente', {
     PacienteID: {
@@ -27,6 +27,18 @@ const Paciente = sequelize.define('Paciente', {
     },
     Genero: {
         type: DataTypes.STRING(1)
+    },
+    EstadoCivil: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    Ocupacion: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    Direccion: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     TipoSangre: {
         type: DataTypes.STRING(3)

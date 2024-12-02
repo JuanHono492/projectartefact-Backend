@@ -1,7 +1,10 @@
 const { DataTypes } = require('sequelize');
-const {sequelize} = require('../config/database');
+const { sequelize } = require('../config/database');
 
-// Definición del modelo Cita
+// Asegúrate de importar los modelos después de la definición de Cita
+let Paciente;
+let Usuario;
+
 const Cita = sequelize.define('Cita', {
     CitaID: {
         type: DataTypes.INTEGER,
@@ -13,9 +16,9 @@ const Cita = sequelize.define('Cita', {
         allowNull: false
     },
     DoctorID: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
+        type: DataTypes.STRING(50),  // Cambiar a STRING(50) si es NVARCHAR(50)
+        allowNull: true
+    },    
     FechaCita: {
         type: DataTypes.DATE,
         allowNull: false
@@ -40,5 +43,14 @@ const Cita = sequelize.define('Cita', {
     timestamps: false
 });
 
-// Exportar el modelo sin relaciones (para evitar dependencias circulares en esta etapa)
+// Definir las relaciones después de la definición de los modelos
+Cita.associate = (models) => {
+    Paciente = models.Paciente;
+    Usuario = models.Usuario;
+
+    Cita.belongsTo(Paciente, { foreignKey: 'PacienteID' }); // Relación con Paciente
+    Cita.belongsTo(Usuario, { as: 'Doctor', foreignKey: 'DoctorID' }); // Relación con Usuario (Doctor)
+};
+
+// Exportar el modelo
 module.exports = Cita;

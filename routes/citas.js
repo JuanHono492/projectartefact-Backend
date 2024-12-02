@@ -1,4 +1,3 @@
-// routes/citas.js
 const express = require('express');
 const router = express.Router();
 const Cita = require('../models/Cita');
@@ -11,7 +10,7 @@ router.get('/', async (req, res) => {
         const citas = await Cita.findAll({
             include: [
                 { model: Paciente, attributes: ['Nombre', 'Apellido', 'DNI'] },
-                { model: Usuario, as: 'Doctor', attributes: ['Nombre', 'Apellido'] }
+                { model: Usuario, as: 'Doctor', attributes: ['Nombre', 'Apellido'] } // Alias 'Doctor' para Usuario
             ]
         });
         res.json(citas);
@@ -23,8 +22,21 @@ router.get('/', async (req, res) => {
 
 // Crear una nueva cita
 router.post('/', async (req, res) => {
-    console.log(req.body)
+    console.log("Datos recibidos en el backend:", req.body);  // Verifica qué datos recibes
     try {
+        // Verificar que el DoctorID y PacienteID existen antes de crear la cita
+        const pacienteExistente = await Paciente.findByPk(req.body.PacienteID);
+        const doctorExistente = await Usuario.findByPk(req.body.DoctorID);
+
+        if (!pacienteExistente) {
+            return res.status(404).json({ error: 'Paciente no encontrado' });
+        }
+
+        if (!doctorExistente) {
+            return res.status(404).json({ error: 'Doctor no encontrado' });
+        }
+
+        // Si todo es correcto, crea la nueva cita
         const nuevaCita = await Cita.create(req.body);
         res.status(201).json(nuevaCita);
     } catch (error) {
@@ -74,8 +86,5 @@ router.delete('/:id', async (req, res) => {
         res.status(500).json({ error: 'Error al cambiar el estado de la cita' });
     }
 });
-
-
-
 
 module.exports = router;
