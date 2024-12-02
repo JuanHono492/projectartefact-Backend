@@ -31,20 +31,22 @@ router.get('/', async (req, res) => {
 
 // Crear una nueva cita
 router.post('/', async (req, res) => {
-    const { PacienteID, FechaCita, HoraCita, MotivoCita, Estado } = req.body;
+    const { PacienteID, DoctorID, FechaCita, HoraCita, MotivoCita, Estado, DescripcionCita } = req.body;
  
     // Verifica que todos los campos necesarios están presentes
-    if (!PacienteID || !FechaCita || !HoraCita || !MotivoCita || !Estado) {
+    if (!PacienteID || !DoctorID || !FechaCita || !HoraCita || !MotivoCita || !Estado || !DescripcionCita) {
         return res.status(400).json({ error: 'Faltan datos obligatorios para crear la cita' });
     }
  
     try {
         const nuevaCita = await Cita.create({
             PacienteID,
+            DoctorID,
             FechaCita,
             HoraCita,
             MotivoCita,
-            Estado
+            Estado,
+            DescripcionCita
         });
  
         res.status(201).json({
